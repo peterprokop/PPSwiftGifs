@@ -5,7 +5,8 @@ PPSwiftGifs provides a convenient way to show animated GIF images as a part of i
 ## Installation
 
 * Just clone this repo and add ```PPSwiftGifs.swift``` to your project.
-* Add ImageIO.framework to your project
+* Add ImageIO.framework to your project.
+* Add ```#import <ImageIO/ImageIO.h>``` to bridging header.
 
 ## Requirements
 
