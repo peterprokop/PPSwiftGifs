@@ -14,10 +14,13 @@ class PPSwiftGifs
 {
     // MARK: Public
     class func animatedImageWithGIFNamed(name: String) -> UIImage? {
-        let url = NSBundle.mainBundle().URLForResource(name, withExtension: "gif")
-        let source = CGImageSourceCreateWithURL(url, nil)
+        if let url = NSBundle.mainBundle().URLForResource(name, withExtension: "gif") {
+            let source = CGImageSourceCreateWithURL(url, nil)
+            
+            return animatedImageWithImageSource(source)
+        }
         
-        return animatedImageWithImageSource(source)
+        return nil
     }
     
     // MARK: Private

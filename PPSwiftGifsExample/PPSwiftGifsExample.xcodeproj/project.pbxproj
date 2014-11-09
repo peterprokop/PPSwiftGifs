@@ -88,13 +88,13 @@
 		0D748ED91A0E17AB00B280FF /* PPSwiftGifsExample */ = {
 			isa = PBXGroup;
 			children = (
+				0D748F0D1A0E4A0000B280FF /* test.gif */,
 				0D748F0F1A0E4D5200B280FF /* variableDuration.gif */,
 				0D748EFF1A0E181100B280FF /* PPSwiftGifs */,
 				0D748EDC1A0E17AB00B280FF /* AppDelegate.swift */,
 				0D748EDE1A0E17AB00B280FF /* ViewController.swift */,
 				0D748EE01A0E17AB00B280FF /* Main.storyboard */,
 				0D748EE31A0E17AB00B280FF /* Images.xcassets */,
-				0D748F0D1A0E4A0000B280FF /* test.gif */,
 				0D748EE51A0E17AB00B280FF /* LaunchScreen.xib */,
 				0D748EDA1A0E17AB00B280FF /* Supporting Files */,
 				0D748F091A0E1DDC00B280FF /* PPSwiftGifsExample-Bridging-Header.h */,
@@ -439,6 +439,7 @@
 				0D748EF81A0E17AB00B280FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0D748EF91A0E17AB00B280FF /* Build configuration list for PBXNativeTarget "PPSwiftGifsExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -447,6 +448,7 @@
 				0D748EFB1A0E17AB00B280FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

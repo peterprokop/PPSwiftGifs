@@ -16,7 +16,6 @@ class ViewController: UIViewController {
         
         //imageView.image = PPSwiftGifs.animatedImageWithGIFNamed("test")
         imageView.image = PPSwiftGifs.animatedImageWithGIFNamed("variableDuration")
-        
     }
 
     override func didReceiveMemoryWarning() {
