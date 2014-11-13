@@ -13,7 +13,7 @@ import CoreFoundation
 class PPSwiftGifs
 {
     // MARK: Public
-    class func animatedImageWithGIFNamed(name: String) -> UIImage? {
+    class func animatedImageWithGIFNamed(name: String!) -> UIImage? {
         if let url = NSBundle.mainBundle().URLForResource(name, withExtension: "gif") {
             let source = CGImageSourceCreateWithURL(url, nil)
             
@@ -23,7 +23,7 @@ class PPSwiftGifs
         return nil
     }
     
-    class func animatedImageWithGIFData(data: NSData) -> UIImage? {
+    class func animatedImageWithGIFData(data: NSData!) -> UIImage? {
         if let source = CGImageSourceCreateWithData(data, nil) {
             return animatedImageWithImageSource(source)
         }
@@ -34,12 +34,7 @@ class PPSwiftGifs
     // MARK: Private
     private class func animatedImageWithImageSource (source: CGImageSourceRef) -> UIImage?	{
         let (images, delays) = createImagesAndDelays(source);
-        
-        var totalDuration = 0;
-        for x in delays {
-            totalDuration += x
-        }
-
+        let totalDuration = delays.reduce(0, +)
         let frames = frameArray(images, delays, totalDuration)
         
         // All durations in GIF are in 1/100th of second
@@ -109,6 +104,10 @@ class PPSwiftGifs
     }
     
     private class func gcd(values: Array<Int>) -> Int {
+        if values.count == 0 {
+            return 1;
+        }
+        
         var currentGCD = values[0]
 
         for i in 0 ..< values.count {
