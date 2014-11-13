@@ -15,8 +15,8 @@
 		0D748EF31A0E17AB00B280FF /* PPSwiftGifsExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D748EF21A0E17AB00B280FF /* PPSwiftGifsExampleTests.swift */; };
 		0D748F011A0E181100B280FF /* PPSwiftGifs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D748F001A0E181100B280FF /* PPSwiftGifs.swift */; };
 		0D748F031A0E1C3200B280FF /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D748F021A0E1C3200B280FF /* ImageIO.framework */; };
-		0D748F0E1A0E4A0000B280FF /* test.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0D748F0D1A0E4A0000B280FF /* test.gif */; };
-		0D748F101A0E4D5200B280FF /* variableDuration.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0D748F0F1A0E4D5200B280FF /* variableDuration.gif */; };
+		0D748F101A0E4D5200B280FF /* VariableDuration.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0D748F0F1A0E4D5200B280FF /* VariableDuration.gif */; };
+		0DC790E41A14E9E40097EB37 /* Loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0DC790E31A14E9E40097EB37 /* Loading.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +43,8 @@
 		0D748F001A0E181100B280FF /* PPSwiftGifs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPSwiftGifs.swift; sourceTree = "<group>"; };
 		0D748F021A0E1C3200B280FF /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		0D748F091A0E1DDC00B280FF /* PPSwiftGifsExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PPSwiftGifsExample-Bridging-Header.h"; sourceTree = "<group>"; };
-		0D748F0D1A0E4A0000B280FF /* test.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = test.gif; sourceTree = "<group>"; };
-		0D748F0F1A0E4D5200B280FF /* variableDuration.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = variableDuration.gif; sourceTree = "<group>"; };
+		0D748F0F1A0E4D5200B280FF /* VariableDuration.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = VariableDuration.gif; sourceTree = "<group>"; };
+		0DC790E31A14E9E40097EB37 /* Loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Loading.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +88,8 @@
 		0D748ED91A0E17AB00B280FF /* PPSwiftGifsExample */ = {
 			isa = PBXGroup;
 			children = (
-				0D748F0D1A0E4A0000B280FF /* test.gif */,
-				0D748F0F1A0E4D5200B280FF /* variableDuration.gif */,
+				0DC790E31A14E9E40097EB37 /* Loading.gif */,
+				0D748F0F1A0E4D5200B280FF /* VariableDuration.gif */,
 				0D748EFF1A0E181100B280FF /* PPSwiftGifs */,
 				0D748EDC1A0E17AB00B280FF /* AppDelegate.swift */,
 				0D748EDE1A0E17AB00B280FF /* ViewController.swift */,
@@ -216,11 +216,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D748F0E1A0E4A0000B280FF /* test.gif in Resources */,
-				0D748F101A0E4D5200B280FF /* variableDuration.gif in Resources */,
+				0D748F101A0E4D5200B280FF /* VariableDuration.gif in Resources */,
 				0D748EE21A0E17AB00B280FF /* Main.storyboard in Resources */,
 				0D748EE71A0E17AB00B280FF /* LaunchScreen.xib in Resources */,
 				0D748EE41A0E17AB00B280FF /* Images.xcassets in Resources */,
+				0DC790E41A14E9E40097EB37 /* Loading.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

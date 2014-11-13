@@ -23,6 +23,14 @@ class PPSwiftGifs
         return nil
     }
     
+    class func animatedImageWithGIFData(data: NSData) -> UIImage? {
+        if let source = CGImageSourceCreateWithData(data, nil) {
+            return animatedImageWithImageSource(source)
+        }
+        
+        return nil
+    }
+    
     // MARK: Private
     private class func animatedImageWithImageSource (source: CGImageSourceRef) -> UIImage?	{
         let (images, delays) = createImagesAndDelays(source);

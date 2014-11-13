@@ -18,24 +18,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fbu-Ub-abr">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fbu-Ub-abr">
+                                <rect key="frame" x="0.0" y="20" width="600" height="193"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cfT-cb-sHB">
+                                <rect key="frame" x="0.0" y="213" width="600" height="193"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZTD-K8-rzl">
+                                <rect key="frame" x="0.0" y="407" width="600" height="193"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="fbu-Ub-abr" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="OC4-Wo-TUn"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="fbu-Ub-abr" secondAttribute="trailing" constant="-16" id="PRA-jk-l1l"/>
-                            <constraint firstItem="fbu-Ub-abr" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="XSp-ys-iic"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="fbu-Ub-abr" secondAttribute="bottom" id="tVb-NP-NhE"/>
+                            <constraint firstItem="ZTD-K8-rzl" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="IK6-Oo-Nu9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cfT-cb-sHB" secondAttribute="trailing" constant="-16" id="NLY-aR-qEI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fbu-Ub-abr" secondAttribute="trailing" constant="-16" id="PTb-8W-2M4"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="ZTD-K8-rzl" secondAttribute="bottom" id="SM1-La-pLV"/>
+                            <constraint firstItem="fbu-Ub-abr" firstAttribute="height" secondItem="cfT-cb-sHB" secondAttribute="height" id="dvb-cX-Xf6"/>
+                            <constraint firstItem="cfT-cb-sHB" firstAttribute="height" secondItem="ZTD-K8-rzl" secondAttribute="height" id="fu9-dr-RPa"/>
+                            <constraint firstItem="cfT-cb-sHB" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="jLo-Hy-vGs"/>
+                            <constraint firstItem="cfT-cb-sHB" firstAttribute="top" secondItem="fbu-Ub-abr" secondAttribute="bottom" id="lgq-TO-l7R"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZTD-K8-rzl" secondAttribute="trailing" constant="-16" id="mib-Qm-51A"/>
+                            <constraint firstItem="fbu-Ub-abr" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="nNF-lQ-tPe"/>
+                            <constraint firstItem="fbu-Ub-abr" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="ogx-Wv-eBm"/>
+                            <constraint firstItem="ZTD-K8-rzl" firstAttribute="top" secondItem="cfT-cb-sHB" secondAttribute="bottom" constant="1" id="sXc-rI-6QL"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="fbu-Ub-abr" id="MyO-jl-5QM"/>
+                        <outlet property="imageView1" destination="fbu-Ub-abr" id="2b8-rA-6Bo"/>
+                        <outlet property="imageView2" destination="cfT-cb-sHB" id="fQY-ke-jRv"/>
+                        <outlet property="imageView3" destination="ZTD-K8-rzl" id="jVM-8g-eMo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="345" y="652"/>
         </scene>
     </scenes>
 </document>

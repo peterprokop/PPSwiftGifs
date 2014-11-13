@@ -10,12 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageView1: UIImageView!
+    @IBOutlet weak var imageView2: UIImageView!
+    @IBOutlet weak var imageView3: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //imageView.image = PPSwiftGifs.animatedImageWithGIFNamed("test")
-        imageView.image = PPSwiftGifs.animatedImageWithGIFNamed("variableDuration")
+        imageView1.image = PPSwiftGifs.animatedImageWithGIFNamed("Loading")
+        imageView2.image = PPSwiftGifs.animatedImageWithGIFNamed("VariableDuration")
+        
+        if let url = NSBundle.mainBundle().URLForResource("Loading", withExtension: "gif") {
+            if let data = NSData(contentsOfURL: url) {
+                imageView3.image = PPSwiftGifs.animatedImageWithGIFData(data)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
