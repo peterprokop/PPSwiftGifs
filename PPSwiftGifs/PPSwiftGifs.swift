@@ -11,10 +11,10 @@ import UIKit
 import CoreFoundation
 import ImageIO
 
-class PPSwiftGifs
+public class PPSwiftGifs
 {
     // MARK: Public
-    class func animatedImageWithGIFNamed(name: String!) -> UIImage? {
+    public class func animatedImageWithGIFNamed(name: String!) -> UIImage? {
         let screenScale = Int(UIScreen.mainScreen().scale)
         let possibleScales = [1, 2, 3]
         let orderedScales = [screenScale] + possibleScales.filter{$0 != screenScale}
@@ -33,7 +33,7 @@ class PPSwiftGifs
         return nil
     }
     
-    class func animatedImageWithGIFData(data: NSData!) -> UIImage? {
+    public class func animatedImageWithGIFData(data: NSData!) -> UIImage? {
         if let source = CGImageSourceCreateWithData(data, nil) {
             return animatedImageWithImageSource(source)
         }
