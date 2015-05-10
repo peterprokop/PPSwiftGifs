@@ -23,7 +23,7 @@ PPSwiftGifs provides a convenient way to show animated GIF images as a part of i
 ## Requirements
 
 Swift 1.2:
-- iOS 7.0+
+- iOS 7.0+ (iOS 8.0+ if you use Carthage)
 - Xcode 6.3+
 
 Swift 1.1:
