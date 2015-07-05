@@ -11,10 +11,10 @@ import UIKit
 import CoreFoundation
 import ImageIO
 
-public class PPSwiftGifs
+class PPSwiftGifs
 {
     // MARK: Public
-    public class func animatedImageWithGIFNamed(name: String!) -> UIImage? {
+    class func animatedImageWithGIFNamed(name: String!) -> UIImage? {
         let screenScale = Int(UIScreen.mainScreen().scale)
         let possibleScales = [1, 2, 3]
         let orderedScales = [screenScale] + possibleScales.filter{$0 != screenScale}
@@ -23,17 +23,16 @@ public class PPSwiftGifs
         let orderedSuffixes = tmp.reduce([], combine: +) + [""]
         
         for suffix in orderedSuffixes {
-            if let url = NSBundle.mainBundle().URLForResource(name + suffix, withExtension: "gif") {
-                let source = CGImageSourceCreateWithURL(url, nil)
-                
-                return animatedImageWithImageSource(source)
+            if let url = NSBundle.mainBundle().URLForResource(name + suffix, withExtension: "gif"),
+                let source = CGImageSourceCreateWithURL(url, nil) {
+                    return animatedImageWithImageSource(source)
             }
         }
         
         return nil
     }
     
-    public class func animatedImageWithGIFData(data: NSData!) -> UIImage? {
+    class func animatedImageWithGIFData(data: NSData!) -> UIImage? {
         if let source = CGImageSourceCreateWithData(data, nil) {
             return animatedImageWithImageSource(source)
         }
@@ -61,8 +60,10 @@ public class PPSwiftGifs
         var delays = Array<Int>()
         
         for i in 0 ..< count {
-            images.append(CGImageSourceCreateImageAtIndex(source, i, nil))
-            delays.append(delayForImageAtIndex(source, UInt(i)))
+            if let img = CGImageSourceCreateImageAtIndex(source, i, [:]) {
+                images.append(img)
+                delays.append(delayForImageAtIndex(source, UInt(i)))
+            }
         }
         
         return (images, delays)
@@ -71,7 +72,7 @@ public class PPSwiftGifs
     private class func delayForImageAtIndex(source: CGImageSourceRef, _ i: UInt) -> Int {
         var delay = 1
         
-        let properties = CGImageSourceCopyPropertiesAtIndex(source, Int(i), nil)
+        let properties = CGImageSourceCopyPropertiesAtIndex(source, Int(i), [:])
         
         if (properties != nil) {
             let gifDictionaryProperty = unsafeBitCast(kCGImagePropertyGIFDictionary, UnsafePointer<Void>.self)
@@ -97,16 +98,15 @@ public class PPSwiftGifs
         return delay;
     }
     
-    private class func frameArray(images: Array<CGImageRef>, _ delays: Array<Int>, _ totalDuration: Int) -> Array<AnyObject> {
+    private class func frameArray(images: Array<CGImageRef>, _ delays: Array<Int>, _ totalDuration: Int) -> [UIImage]{
         let delayGCD = gcd(delays)
-        let frameCount = totalDuration / delayGCD
         var frames = Array<UIImage>()
         frames.reserveCapacity(images.count)
         
         for i in 0 ..< images.count {
             let frame = UIImage(CGImage: images[i], scale: UIScreen.mainScreen().scale, orientation: .Up)
-            for j in 0 ..< delays[i]/delayGCD {
-                frames.append(frame!)
+            for _ in 0 ..< delays[i]/delayGCD {
+                frames.append(frame)
             }
         }
         
@@ -129,7 +129,7 @@ public class PPSwiftGifs
     
     private class func gcd(var a: Int, var _ b: Int) -> Int {
         while (true) {
-            var r = a % b
+            let r = a % b
             if (r == 0) {
                 return b
             }
