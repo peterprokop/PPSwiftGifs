@@ -6,135 +6,138 @@
 //  Copyright (c) 2014 Peter Prokop. All rights reserved.
 //
 
-import Foundation
-import UIKit
 import CoreFoundation
+import Foundation
 import ImageIO
+import UIKit
 
-public class PPSwiftGifs
-{
+public class PPSwiftGifs {
     // MARK: Public
-    public class func animatedImageWithGIFNamed(name: String!) -> UIImage? {
-        let screenScale = Int(UIScreen.mainScreen().scale)
+
+    public class func animatedImageWithGIF(named name: String!) -> UIImage? {
+        let screenScale = Int(UIScreen.main.scale)
         let possibleScales = [1, 2, 3]
-        let orderedScales = [screenScale] + possibleScales.filter{$0 != screenScale}
-        
-        let tmp = orderedScales.map{["@" + String($0) + "x", "@" + String($0) + "X"]}
-        let orderedSuffixes = tmp.reduce([], combine: +) + [""]
-        
+        let orderedScales = [screenScale] + possibleScales.filter { $0 != screenScale }
+
+        let suffixes = orderedScales.map { ["@\($0)x", "@\($0)X"] }
+        let orderedSuffixes = suffixes.flatMap { $0 } + [""]
+
         for suffix in orderedSuffixes {
-            if let url = NSBundle.mainBundle().URLForResource(name + suffix, withExtension: "gif") {
-                let source = CGImageSourceCreateWithURL(url, nil)
-                
-                return animatedImageWithImageSource(source)
+            if let url = Bundle.main.url(forResource: name + suffix, withExtension: "gif"),
+               let source = CGImageSourceCreateWithURL(url as CFURL, nil)
+            {
+                return animatedImageWithImageSource(source: source)
             }
         }
-        
+
         return nil
     }
-    
-    public class func animatedImageWithGIFData(data: NSData!) -> UIImage? {
-        if let source = CGImageSourceCreateWithData(data, nil) {
-            return animatedImageWithImageSource(source)
+
+    public class func animatedImageWithGIF(data: Data) -> UIImage? {
+        if let source = CGImageSourceCreateWithData(data as NSData, nil) {
+            return animatedImageWithImageSource(source: source)
         }
-        
+
         return nil
     }
-    
+
     // MARK: Private
-    private class func animatedImageWithImageSource (source: CGImageSourceRef) -> UIImage?	{
-        let (images, delays) = createImagesAndDelays(source);
-        let totalDuration = delays.reduce(0, combine: +)
-        let frames = frameArray(images, delays, totalDuration)
-        
+
+    private class func animatedImageWithImageSource(source: CGImageSource) -> UIImage? {
+        let (images, delays) = createImagesAndDelays(source: source)
+        let totalDuration = delays.reduce(0, +)
+        let frames = frameArray(
+            images: images,
+            delays: delays,
+            totalDuration: totalDuration
+        )
+
         // All durations in GIF are in 1/100th of second
-        let duration = NSTimeInterval(Double(totalDuration)/100.0)
-        let animation = UIImage.animatedImageWithImages(frames, duration: duration)
-        
+        let duration = TimeInterval(Double(totalDuration) / 100.0)
+        let animation = UIImage.animatedImage(with: frames, duration: duration)
+
         return animation
     }
-    
-    private class func createImagesAndDelays(source: CGImageSourceRef) -> (Array<CGImageRef>, Array<Int>) {
+
+    private class func createImagesAndDelays(source: CGImageSource) -> ([CGImage], [Int]) {
         let count = Int(CGImageSourceGetCount(source))
-        
-        var images = Array<CGImageRef>()
-        var delays = Array<Int>()
-        
-        for i in 0 ..< count {
-            images.append(CGImageSourceCreateImageAtIndex(source, i, nil))
-            delays.append(delayForImageAtIndex(source, UInt(i)))
+
+        var images = [CGImage]()
+        var delays = [Int]()
+
+        for i in 0..<count {
+            images.append(CGImageSourceCreateImageAtIndex(source, i, nil)!)
+            delays.append(delayForImage(source: source, at: i))
         }
-        
+
         return (images, delays)
     }
-    
-    private class func delayForImageAtIndex(source: CGImageSourceRef, _ i: UInt) -> Int {
+
+    private class func delayForImage(source: CGImageSource, at i: Int) -> Int {
         var delay = 1
-        
-        let properties = CGImageSourceCopyPropertiesAtIndex(source, Int(i), nil)
-        
-        if (properties != nil) {
-            let gifDictionaryProperty = unsafeBitCast(kCGImagePropertyGIFDictionary, UnsafePointer<Void>.self)
+
+        let properties = CGImageSourceCopyPropertiesAtIndex(source, i, nil)
+
+        if properties != nil {
+            let gifDictionaryProperty = unsafeBitCast(kCGImagePropertyGIFDictionary, to: UnsafeRawPointer.self)
             let gifProperties = CFDictionaryGetValue(properties, gifDictionaryProperty)
-            
-            if (gifProperties != nil) {
-                let gifPropertiesCFD = unsafeBitCast(gifProperties, CFDictionary.self)
-                
-                let unclampedDelayTimeProperty = unsafeBitCast(kCGImagePropertyGIFUnclampedDelayTime, UnsafePointer<Void>.self)
-                var number = unsafeBitCast(CFDictionaryGetValue(gifPropertiesCFD, unclampedDelayTimeProperty), NSNumber.self);
-                
-                if (number.doubleValue == 0) {
-                    let delayTimeProperty = unsafeBitCast(kCGImagePropertyGIFDelayTime, UnsafePointer<Void>.self)
-                    number = unsafeBitCast(CFDictionaryGetValue(gifPropertiesCFD, delayTimeProperty), NSNumber.self);
+
+            if gifProperties != nil {
+                let gifPropertiesCFD = unsafeBitCast(gifProperties, to: CFDictionary.self)
+
+                let unclampedDelayTimeProperty = unsafeBitCast(
+                    kCGImagePropertyGIFUnclampedDelayTime,
+                    to: UnsafeRawPointer.self
+                )
+                var number = unsafeBitCast(
+                    CFDictionaryGetValue(gifPropertiesCFD, unclampedDelayTimeProperty),
+                    to: NSNumber.self
+                )
+
+                if number.doubleValue == 0 {
+                    let delayTimeProperty = unsafeBitCast(kCGImagePropertyGIFDelayTime, to: UnsafeRawPointer.self)
+                    number = unsafeBitCast(CFDictionaryGetValue(gifPropertiesCFD, delayTimeProperty), to: NSNumber.self)
                 }
-                
-                if (number.doubleValue > 0) {
-                    delay = lrint(number.doubleValue * 100);
+
+                if number.doubleValue > 0 {
+                    delay = lrint(number.doubleValue * 100)
                 }
             }
         }
-        
-        return delay;
+
+        return delay
     }
-    
-    private class func frameArray(images: Array<CGImageRef>, _ delays: Array<Int>, _ totalDuration: Int) -> Array<AnyObject> {
-        let delayGCD = gcd(delays)
-        let frameCount = totalDuration / delayGCD
-        var frames = Array<UIImage>()
+
+    private class func frameArray(images: [CGImage], delays: [Int], totalDuration: Int) -> [UIImage] {
+        let delayGCD = gcd(values: delays)
+        var frames = [UIImage]()
         frames.reserveCapacity(images.count)
-        
-        for i in 0 ..< images.count {
-            let frame = UIImage(CGImage: images[i], scale: UIScreen.mainScreen().scale, orientation: .Up)
-            for j in 0 ..< delays[i]/delayGCD {
-                frames.append(frame!)
+
+        for i in 0..<images.count {
+            let frame = UIImage(cgImage: images[i], scale: UIScreen.main.scale, orientation: .up)
+            for _ in 0..<delays[i] / delayGCD {
+                frames.append(frame)
             }
         }
-        
-        return frames;
+
+        return frames
     }
-    
-    private class func gcd(values: Array<Int>) -> Int {
-        if values.count == 0 {
-            return 1;
-        }
-        
-        var currentGCD = values[0]
-        
-        for i in 0 ..< values.count {
-            currentGCD = gcd(values[i], currentGCD)
-        }
-        
-        return currentGCD;
+
+    private class func gcd(values: [Int]) -> Int {
+        return values.reduce(1, gcd)
     }
-    
-    private class func gcd(var a: Int, var _ b: Int) -> Int {
-        while (true) {
-            var r = a % b
-            if (r == 0) {
+
+    private class func gcd(_ num1: Int, _ num2: Int) -> Int {
+        var a = num1
+        var b = num2
+
+        while true {
+            let r = a % b
+            if r == 0 {
                 return b
             }
-            a = b;
-            b = r;
+            a = b
+            b = r
         }
     }
 }

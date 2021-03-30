@@ -17,21 +17,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageView1.image = PPSwiftGifs.animatedImageWithGIFNamed("Loading")
-        imageView2.image = PPSwiftGifs.animatedImageWithGIFNamed("VariableDuration")
+        imageView1.image = PPSwiftGifs.animatedImageWithGIF(named: "Loading")
+        imageView2.image = PPSwiftGifs.animatedImageWithGIF(named: "VariableDuration")
         
-        if let url = NSBundle.mainBundle().URLForResource("Loading", withExtension: "gif") {
-            if let data = NSData(contentsOfURL: url) {
-                imageView3.image = PPSwiftGifs.animatedImageWithGIFData(data)
+        if let url = Bundle.main.url(forResource: "Loading", withExtension: "gif") {
+            if let data = try? Data(contentsOf: url) {
+                imageView3.image = PPSwiftGifs.animatedImageWithGIF(data: data)
             }
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
-
