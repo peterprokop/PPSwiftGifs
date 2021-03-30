@@ -24,28 +24,22 @@ PPSwiftGifs provides a convenient way to show animated GIF images as a part of i
 
 ## Requirements
 
-Swift 2.0:
-Use [swift-2.0 branch](https://github.com/peterprokop/PPSwiftGifs/tree/swift-2.0)
-- iOS 7.0+ (iOS 8.0+ if you use Carthage)
-- Xcode 7.0+
-
-Swift 1.2:
-- iOS 7.0+ (iOS 8.0+ if you use Carthage)
-- Xcode 6.3+
-
-Swift 1.1:
-Use [swift-1.1 branch](https://github.com/peterprokop/PPSwiftGifs/tree/swift-1.1)
-- iOS 7.0+
-- Xcode 6.1-6.2
+Swift 5. For older Swift versions please check previous releases. 
 
 ## Usage
 
-```
-imageView.image = PPSwiftGifs.animatedImageWithGIFNamed("gif_name")
+```swift
+imageView.image = PPSwiftGifs.animatedImageWithGIF(named: "gif_name")
 ```
 
 (File named "gif_name.gif" should be present in your project and copied as a bundle resource.
-As far as I know, you can't add GIFs to asset catalogs.)
+Currently  you can't add GIFs to asset catalogs.)
+
+Alternatively, you can construct animated image from data:
+```swift
+imageView.image = PPSwiftGifs.animatedImageWithGIF(data: data)
+```
+
 
 ## Author(s)
 
